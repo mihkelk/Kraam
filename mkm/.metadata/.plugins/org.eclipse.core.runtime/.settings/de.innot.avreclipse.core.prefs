@@ -1,0 +1,7 @@
+#Wed Oct 10 09:15:30 EEST 2012
+avrpaths//systempath/PDFPATH=C\:\\Program Files\\Atmel\\AVR Tools\\Partdescriptionfiles
+avrpaths//systempath/MAKE=C\:\\Eclipse\\WinAVR\\utils\\bin
+avrpaths//systempath/AVRGCC=C\:\\Eclipse\\WinAVR\\bin
+eclipse.preferences.version=1
+avrpaths//systempath/AVRDUDE=C\:\\Eclipse\\WinAVR\\bin
+avrpaths//systempath/AVRINCLUDE=C\:\\Eclipse\\WinAVR\\avr\\include
