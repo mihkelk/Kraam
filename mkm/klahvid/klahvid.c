@@ -8,10 +8,9 @@
 #include <conio.h>
 #include <stdlib.h>
 
-
-
-int main(){
-int klahv = kbhit();
-  printf("%d", klahv);
-  getchar();
+int main(void) {
+	int klahv = kbhit();
+	printf("%d", klahv);
+	getchar();
+	return 0;
 }

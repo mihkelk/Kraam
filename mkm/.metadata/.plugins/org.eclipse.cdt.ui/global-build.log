@@ -1,0 +1,22 @@
+14:32:10 **** Rebuild of configuration Release for project klahvid ****
+Info: Internal Builder is used for build
+gcc -O3 -Wall -c -fmessage-length=0 -o klahvid.o "..\\klahvid.c" 
+gcc -o klahvid.exe klahvid.o 
+Info: Nothing to build for klahvid
+14:34:21 **** Rebuild of configuration Release for project m1 ****
+Info: Internal Builder is used for build
+gcc -O3 -Wall -c -fmessage-length=0 -o m1.o "..\\m1.c" 
+gcc -o m1.exe m1.o 
+Info: Nothing to build for klahvid
+Info: Nothing to build for m1
+14:36:52 **** Rebuild of configuration Release for project m2 ****
+Info: Internal Builder is used for build
+gcc -O3 -Wall -c -fmessage-length=0 -o m2.o "..\\m2.c" 
+gcc -o m2.exe m2.o 
+Info: Nothing to build for klahvid
+Info: Nothing to build for m1
+Info: Nothing to build for m2
+14:39:04 **** Rebuild of configuration Release for project m3 ****
+Info: Internal Builder is used for build
+gcc -O3 -Wall -c -fmessage-length=0 -o m3.o "..\\m3.c" 
+gcc -o m3.exe m3.o 
