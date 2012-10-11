@@ -15,7 +15,7 @@ int main() {
 	int px = 2;
 	int py = 2;
 
-	int suurus = 50;
+	int suurus = 40;
 
 	for (y = 0; y < (suurus + 1); y++) {
 		for (x = 0; x < (suurus + 1); x++) {
