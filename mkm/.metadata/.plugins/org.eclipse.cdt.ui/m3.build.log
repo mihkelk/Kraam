@@ -1,7 +1,0 @@
-14:39:04 **** Rebuild of configuration Release for project m3 ****
-Info: Internal Builder is used for build
-gcc -O3 -Wall -c -fmessage-length=0 -o m3.o "..\\m3.c" 
-gcc -o m3.exe m3.o 
-
-14:39:05 Build Finished (took 430ms)
-
