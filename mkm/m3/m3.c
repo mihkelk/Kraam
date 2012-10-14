@@ -15,7 +15,7 @@ int main() {
 	int px = 2;
 	int py = 2;
 
-	int suurus = 40;
+	int suurus = 20;
 
 	for (y = 0; y < (suurus + 1); y++) {
 		for (x = 0; x < (suurus + 1); x++) {
@@ -30,19 +30,27 @@ int main() {
 
 	while ("TRUE") {
 
+//----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
 		char klahv = getch();
-		printf("%c", klahv);
+
 		if (klahv == 'd' && (koordinaadid[py][px + 1] != 1)) {
 			px++;
+			koordinaadid[py][px - 1] = 0;
 		} else if (klahv == 'a' && (koordinaadid[py][px - 1] != 1)) {
 			px--;
+			koordinaadid[py][px + 1] = 0;
 		}
 		if (klahv == 'w' && (koordinaadid[py][py - 1] != 1)) {
 			py--;
+			koordinaadid[py + 1][px] = 0;
 		}
 		if (klahv == 's' && (koordinaadid[py][py + 1] != 1)) {
 			py++;
+			koordinaadid[py - 1][px] = 0;
 		}
+//------------------------------------------------------------------------//
+
+//-------------------------------joonistamine-----------------------------//
 		system("cls");
 
 		for (y = 0; y < (suurus + 1); y++) {
@@ -50,10 +58,19 @@ int main() {
 				if (x == px && y == py) {
 					koordinaadid[y][x] = 3;
 				}
-				printf("%d", koordinaadid[y][x]);
+				if (koordinaadid[y][x] == 0) {
+					printf(" ");
+				} else if (koordinaadid[y][x] == 3) {
+					printf("\1");
+				} else if (koordinaadid[y][x] == 1) {
+					printf("\333"); //ASCII koodid seitsmendüsteemis
+				} else {
+					(printf("%d", koordinaadid[y][x]));
+				};
+
 			};
 			printf("\n");
 		};
+//------------------------------------------------------------------------//
 	};
-	return 0;
 }

@@ -11,6 +11,7 @@
 int main(void) {
 	int klahv = kbhit();
 	printf("%d", klahv);
+	printf("\219");
 	getchar();
 	return 0;
 }
