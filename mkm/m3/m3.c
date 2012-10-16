@@ -58,15 +58,23 @@ int main() {
 				if (x == px && y == py) {
 					koordinaadid[y][x] = 3;
 				}
-				if (koordinaadid[y][x] == 0) {
+				switch(koordinaadid[y][x]){
+				case 0: printf(" ");
+				break;
+				case 1: printf("\333"); //ASCII koodid kaheksanddsüsteemis
+				break;
+				case 3: printf("\1");
+				break;
+				};
+				/*if (koordinaadid[y][x] == 0) {
 					printf(" ");
 				} else if (koordinaadid[y][x] == 3) {
 					printf("\1");
 				} else if (koordinaadid[y][x] == 1) {
-					printf("\333"); //ASCII koodid seitsmendüsteemis
+
 				} else {
 					(printf("%d", koordinaadid[y][x]));
-				};
+				};*/
 
 			};
 			printf("\n");
