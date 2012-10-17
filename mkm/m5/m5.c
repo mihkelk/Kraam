@@ -104,8 +104,8 @@ int main() {
 //-------------------------------joonistamine-----------------------------//
 		system("cls");
 
-		for (y = 0; y < (py + jsuurus + 1); y++) {
-			for (x = 0; x < (px + jsuurus + 1); x++) {
+		for (y = py-5; y < (py + jsuurus + 1); y++) {
+			for (x = px-5; x < (px + jsuurus + 1); x++) {
 				if (x == px && y == py) {
 					koordinaadid[r][y][x] = 3;
 				}
