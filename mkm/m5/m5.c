@@ -114,8 +114,7 @@ int main() {
 					printf(" ");
 					break;
 				case 1:
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
-							10);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 					printf("\333"); //ASCII koodid kaheksanddsüsteemis
 					break;
 				case 3:
