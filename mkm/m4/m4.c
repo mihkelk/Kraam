@@ -15,12 +15,17 @@
 #include <conio.h>
 #include <stdlib.h>
 
-int toad( x, y, r) {
-	// int x;
-	//int y;
-	int suurus = 20;
-int kn(main(koordinaadid));
-	//int r = main(r);
+int x;
+int y;
+int koordinaadid[64][64][64];
+int suurus = 20;
+int m = 0;
+int px = 2;
+	int py = 2;
+
+int toad( r) {
+	int x;
+	int y;
 
 	//üldise toa loomine
 
@@ -36,73 +41,99 @@ int kn(main(koordinaadid));
 	};
 
 	//vastava toa loomine
-	//if r = 10 then
-	koordinaadid[10][20[10] = 4;
-	koordinaadid[20][4[6] = 1;
+	koordinaadid[10][20][10] = 2;
+	koordinaadid[10][4][6] = 0;
 
-	return 0;
+	koordinaadid[20][4][6] = 1;
+	koordinaadid[20][0][11] = 2;
+
+
+	return 1;
 
 }
 
+
+int tuba1(){
+	px = 10;
+			py = 19;
+			return 1;
+};
+int tuba2(){ //tegelase teise toa otsa liigutamine
+	px = 11;
+	py = 1;
+			return 1;
+};
+
 int main() {
-int x;
-int y;
-int koordinaadid[64][64][64];
+	int x;
+	int y;
+	//int koordinaadid[64][64][64];
+	int suurus = 20;
 
-int px = 2;
-int py = 2;
-int r = 10;
 
-while ("TRUE") {
+	int r = 10;
 
-	if (koordinaadid[py][px] == 4) {
+	while ("TRUE") {
+
+		toad(r);
+
+		if (koordinaadid[10][py][px] == 2) {
 			r = 20;
-
-	};
-
-
+			tuba2();
+		};
+		if (koordinaadid[20][py][px] == 2) {
+			r = 10;
+			tuba1();
+		};
 
 //----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
-	char klahv = getch();
+		char klahv = getch();
 
-	if (klahv == 'd' && (koordinaadid[py][px + 1] != 1)) {
-		px++;
-		koordinaadid[py][px - 1] = 0;
-	} else if (klahv == 'a' && (koordinaadid[py][px - 1] != 1)) {
-		px--;
-		koordinaadid[py][px + 1] = 0;
-	}
-	if (klahv == 'w' && (koordinaadid[py][py - 1] != 1)) {
-		py--;
-		koordinaadid[py + 1][px] = 0;
-	}
-	if (klahv == 's' && (koordinaadid[py][py + 1] != 1)) {
-		py++;
-		koordinaadid[py - 1][px] = 0;
-	}
+		if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
+			px++;
+			koordinaadid[r][py][px - 1] = 0;
+		} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
+			px--;
+			koordinaadid[r][py][px + 1] = 0;
+		}
+		if (klahv == 'w' && (koordinaadid[r][py - 1][px] != 1)) {
+			py--;
+			koordinaadid[r][py + 1][px] = 0;
+		}
+		if (klahv == 's' && (koordinaadid[r][py + 1][px] != 1)) {
+			py++;
+			koordinaadid[r][py - 1][px] = 0;
+		}
+		toad(r);
 //------------------------------------------------------------------------//
 
 //-------------------------------joonistamine-----------------------------//
-	system("cls");
+		system("cls");
 
-	for (y = 0; y < (suurus + 1); y++) {
-		for (x = 0; x < (suurus + 1); x++) {
-			if (x == px && y == py) {
-				koordinaadid[r][y][x] = 3;
-			}
-			if (koordinaadid[r][y][x] == 0) {
-				printf(" ");
-			} else if (koordinaadid[r][y][x] == 3) {
-				printf("\1");
-			} else if (koordinaadid[r][y][x] == 1) {
-				printf("\333"); //ASCII koodid seitsmendüsteemis
-			} else {
-				(printf("%d", koordinaadid[r][y][x]));
+		for (y = 0; y < (suurus + 1); y++) {
+			for (x = 0; x < (suurus + 1); x++) {
+				if (x == px && y == py) {
+					koordinaadid[r][y][x] = 3;
+				}
+				switch (koordinaadid[r][y][x]) {
+				case 0:
+					printf(" ");
+					break;
+				case 1:
+					printf("\333"); //ASCII koodid kaheksanddsüsteemis
+					break;
+				case 3:
+					printf("\1");
+					break;
+				default:
+					printf("%d", koordinaadid[r][y][x]);
+					break;
+				};
+
 			};
-
+			printf("\n");
 		};
-		printf("\n");
-	};
 //------------------------------------------------------------------------//
-};
+	};
+	return 0;
 }
