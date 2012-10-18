@@ -137,3 +137,6 @@ int main() {
 	return 0;
 }
 
+// SetCursorPos(xpos,ypos); kursori paigutamine kuhugi
+
+

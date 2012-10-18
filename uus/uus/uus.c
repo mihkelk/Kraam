@@ -18,6 +18,11 @@ int main() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6); //värv!!
 
 		printf("\333"); //kuuendsüsteemis
+		SetCursorPos(50,20);
+		printf("\333");
 	//};
 	getch();
+
+
+	return 0;
 }
