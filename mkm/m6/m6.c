@@ -16,7 +16,7 @@ int suurus = 100;
 int m = 0;
 int px = 2;
 int py = 2;
-int jsuurus = 5;
+int jsuurus = 10;
 
 
 int toad( r) {
@@ -111,8 +111,8 @@ while ("TRUE") {
 //-------------------------------joonistamine-----------------------------//
 	system("cls");
 
-	for (y = py - 5; y < (py + jsuurus + 1); y++) {
-		for (x = px - 5; x < (px + jsuurus + 1); x++) {
+	for (y = py - jsuurus; y < (py + jsuurus + 1); y++) {
+		for (x = px - jsuurus; x < (px + jsuurus + 1); x++) {
 			if (x == px && y == py) {
 				koordinaadid[r][y][x] = 3;
 			}
