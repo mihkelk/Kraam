@@ -21,6 +21,20 @@ int main() {
 		SetCursorPos(50,20);
 		printf("\333");
 	//};
+
+		char rida[128];
+		  FILE *sisse=fopen("tervitus.txt", "r");
+		  while(!feof(sisse)){
+		   fscanf(sisse,  "%s", rida);  //võtab ühe sõna
+		   fgets(rida, 128, sisse);
+		   printf("%s", rida);
+		  }
+		  fclose(sisse);
+		  return 1;
+
+
+
+
 	getch();
 
 
