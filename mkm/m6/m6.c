@@ -12,11 +12,11 @@
 int x;
 int y;
 int r;
-int koordinaadid[64][64][64];
-int suurus = 100;
+int koordinaadid[80][80][80];
+int suurus = 1000;
 int m = 0;
-int px = 40;
-int py = 40;
+int px = 30;
+int py = 30;
 int jsuurus = 10; //joonistatava vaatevälja suurus
 
 int toad() {
@@ -70,11 +70,11 @@ int joonistamine() {
 				printf("\333"); //ASCII koodid kaheksanddsüsteemis
 				break;
 			case 2:
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 34);
-				printf(" ");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+				printf("\261");
 				break;
 			case 3:
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 46);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 				printf("\1");
 				break;
 
@@ -105,18 +105,18 @@ int main() {
 
 		if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
 			px++;
-			koordinaadid[r][py][px - 1] = 0;
+			koordinaadid[r][py][px - 1] = koordinaadid[r][py][px + 2];
 		} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
 			px--;
-			koordinaadid[r][py][px + 1] = 0;
+			koordinaadid[r][py][px + 1] = koordinaadid[r][py][px - 2];
 		}
 		if (klahv == 'w' && (koordinaadid[r][py - 1][px] != 1)) {
 			py--;
-			koordinaadid[r][py + 1][px] = 0;
+			koordinaadid[r][py + 1][px] = koordinaadid[r][py - 2][px];
 		}
 		if (klahv == 's' && (koordinaadid[r][py + 1][px] != 1)) {
 			py++;
-			koordinaadid[r][py - 1][px] = 0;
+			koordinaadid[r][py - 1][px] = koordinaadid[r][py + 2][px];
 		}
 		//toad(r);
 		joonistamine();
