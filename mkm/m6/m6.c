@@ -11,104 +11,48 @@
 #include <windows.h> //värvide jaoks
 int x;
 int y;
+int r;
 int koordinaadid[64][64][64];
 int suurus = 100;
 int m = 0;
-int px = 2;
-int py = 2;
-int jsuurus = 10;
+int px = 40;
+int py = 40;
+int jsuurus = 10; //joonistatava vaatevälja suurus
 
+int toad() {
+	//int x;
+	//int y;
 
-int toad( r) {
-	int x;
-	int y;
-
-	FILE *fp = fopen("maailm.txt", "r");
+	FILE *fp = fopen("maailm.txt", "r"); //Faili sisselugemine
 	char asukoht = '0';
-	//üldise toa loomine
 
-	for (y = 0; asukoht !='-'; y++) {
-		for (x = 0; asukoht !='\n'; x++) {
+// Maailma loomine failist
+	for (y = 0; asukoht != '-'; y++) {
+		for (x = 0; asukoht != '\n'; x++) {
 			asukoht = fgetc(fp);
-			if (asukoht == '0') {
+			switch (asukoht) {
+			case '0':
 				koordinaadid[r][y][x] = 0;
-			} else if (asukoht == '1') {
+				break;
+			case '1':
 				koordinaadid[r][y][x] = 1;
-			} else if (asukoht == '2') {
-				koordinaadid[r][y][x] = 2;}
-			else {koordinaadid[r][y][x] = 0;};
+				break;
+			case '2':
+				koordinaadid[r][y][x] = 2;
+				break;
+			default:
+				koordinaadid[r][y][x] = 9;
+				break;
+			}
 		};
-	 asukoht = fgetc(fp);
+		asukoht = fgetc(fp);
 	};
 
-
-return 1;
+	return 1;
 }
-;
-
-//vastava toa loomine
-/*	koordinaadid[10][20][10] = 2;
- koordinaadid[10][4][6] = 0;
-
- koordinaadid[20][4][6] = 1;
- koordinaadid[20][0][11] = 2;*/
-
-int tuba1() {
-px = 10;
-py = 19;
-return 1;
-}
-;
-int tuba2() { //tegelase teise toa otsa liigutamine
-px = 11;
-py = 1;
-return 1;
-}
-;
-
-int main() {
-int x;
-int y;
-//int koordinaadid[64][64][64];
-//int suurus = 20;
-
-int r = 10;
-toad(r);
-while ("TRUE") {
-
-
-
-	if (koordinaadid[10][py][px] == 2) {
-		r = 20;
-		tuba2();
-	};
-	if (koordinaadid[20][py][px] == 2) {
-		r = 10;
-		tuba1();
-	};
-
-//----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
-	char klahv = getch();
-
-	if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
-		px++;
-		koordinaadid[r][py][px - 1] = 0;
-	} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
-		px--;
-		koordinaadid[r][py][px + 1] = 0;
-	}
-	if (klahv == 'w' && (koordinaadid[r][py - 1][px] != 1)) {
-		py--;
-		koordinaadid[r][py + 1][px] = 0;
-	}
-	if (klahv == 's' && (koordinaadid[r][py + 1][px] != 1)) {
-		py++;
-		koordinaadid[r][py - 1][px] = 0;
-	}
-	toad(r);
-//------------------------------------------------------------------------//
 
 //-------------------------------joonistamine-----------------------------//
+int joonistamine() {
 	system("cls");
 
 	for (y = py - jsuurus; y < (py + jsuurus + 1); y++) {
@@ -118,14 +62,19 @@ while ("TRUE") {
 			}
 			switch (koordinaadid[r][y][x]) {
 			case 0:
-					printf(" ");
+				//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 34);
+				printf(" ");
 				break;
 			case 1:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 				printf("\333"); //ASCII koodid kaheksanddsüsteemis
 				break;
+			case 2:
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 34);
+				printf(" ");
+				break;
 			case 3:
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 3);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 46);
 				printf("\1");
 				break;
 
@@ -139,10 +88,44 @@ while ("TRUE") {
 		};
 		printf("\n");
 	};
-//------------------------------------------------------------------------//
-};
-return 0;
+	return 0;
 }
+//------------------------------------------------------------------------//
 
-// SetCursorPos(xpos,ypos); kursori paigutamine kuhugi
+//-------------------------------peafunktsioon----------------------------//
+int main() {
+
+	toad();
+	joonistamine();
+
+	while ("TRUE") {
+
+//----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
+		char klahv = getch();
+
+		if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
+			px++;
+			koordinaadid[r][py][px - 1] = 0;
+		} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
+			px--;
+			koordinaadid[r][py][px + 1] = 0;
+		}
+		if (klahv == 'w' && (koordinaadid[r][py - 1][px] != 1)) {
+			py--;
+			koordinaadid[r][py + 1][px] = 0;
+		}
+		if (klahv == 's' && (koordinaadid[r][py + 1][px] != 1)) {
+			py++;
+			koordinaadid[r][py - 1][px] = 0;
+		}
+		//toad(r);
+		joonistamine();
+	};
+	return 0;
+//------------------------------------------------------------------------//
+}
+//------------------------------------------------------------------------//
+
+
+// SetCursorPos(xpos,ypos); kursori paigutamine kuhugi, pole veel kasutusel
 
