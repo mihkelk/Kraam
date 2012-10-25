@@ -97,6 +97,7 @@ int main() {
 
 	toad();
 	joonistamine();
+	int rsalvestatud; // salvestab ruudu kus mängja seisab, et see hiljem taastada
 
 	while ("TRUE") {
 
@@ -104,11 +105,14 @@ int main() {
 		char klahv = getch();
 
 		if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
+
+			rsalvestatud = koordinaadid[r][py][px+1];
 			px++;
-			koordinaadid[r][py][px - 1] = koordinaadid[r][py][px + 2];
+			koordinaadid[r][py][px - 1] = rsalvestatud;
 		} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
+			rsalvestatud = koordinaadid[r][py][px+1];
 			px--;
-			koordinaadid[r][py][px + 1] = koordinaadid[r][py][px - 2];
+			koordinaadid[r][py][px + 3] = rsalvestatud;
 		}
 		if (klahv == 'w' && (koordinaadid[r][py - 1][px] != 1)) {
 			py--;
