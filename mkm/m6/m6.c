@@ -104,8 +104,10 @@ int main() {
 
 	toad();
 	joonistamine();
-	int rsalvestatud = koordinaadid[r][py][px]; // salvestab ruudu kus mängja seisab, et see hiljem taastada
-int pxr = 1;
+	int rs1 = 0; // salvestab ruudu kus mängja seisab, et see hiljem taastada
+	int rs2 = 0; // salvestab teise ruudu kus mängija seisis
+	int s1 = 1; // samm 1
+	int s2 = 0; // samm 2
 	while ("TRUE") {
 
 //----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
@@ -113,27 +115,76 @@ int pxr = 1;
 
 		if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
 
-			rsalvestatud = koordinaadid[r][py][px + 1];
-			px++;
-			pxr++;
+			if (s1 == 1) {
+				s2 = 0;
+				rs1 = koordinaadid[r][py][px + 1];
+				px++;
+				koordinaadid[r][py][px - 1] = rs2;
+				s1 = 0;
+			}
+			if (s2 == 1) {
+				rs2 = koordinaadid[r][py][px + 1];
+				px++;
+				koordinaadid[r][py][px - 1] = rs1;
+				s2 = 0;
+				s1 = 1;
+			}
 
-			if (pxr == 2 ) {
-				koordinaadid[r][py][px - 2] = rsalvestatud;
-				pxr = 0;
-			};
 		} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
-			rsalvestatud = koordinaadid[r][py][px + 1];
-			px--;
-			koordinaadid[r][py][px + 3] = rsalvestatud;
+			//rsalvestatud = koordinaadid[r][py][px + 1];
+			if (s1 == 1) {
+				s2 = 0;
+				rs1 = koordinaadid[r][py][px - 1];
+				px--;
+				koordinaadid[r][py][px + 1] = rs2;
+				s1 = 0;
+			}
+			if (s2 == 1) {
+				rs2 = koordinaadid[r][py][px - 1];
+				px--;
+				koordinaadid[r][py][px + 1] = rs1;
+				s2 = 0;
+				s1 = 1;
+			}
+			//koordinaadid[r][py][px + 3] = rsalvestatud;*/
 		}
 		if (klahv == 'w' && (koordinaadid[r][py - 1][px] != 1)) {
-			py--;
-			koordinaadid[r][py + 1][px] = koordinaadid[r][py - 2][px];
+			if (s1 == 1) {
+				s2 = 0;
+				rs1 = koordinaadid[r][py - 1][px];
+				py--;
+				koordinaadid[r][py + 1][px] = rs2;
+				s1 = 0;
+			}
+			if (s2 == 1) {
+				rs2 = koordinaadid[r][py - 1][px];
+				py--;
+				koordinaadid[r][py+1][px] = rs1;
+				s2 = 0;
+				s1 = 1;
+			}
+
 		}
 		if (klahv == 's' && (koordinaadid[r][py + 1][px] != 1)) {
-			py++;
-			koordinaadid[r][py - 1][px] = koordinaadid[r][py + 2][px];
+
+			if (s1 == 1) {
+							s2 = 0;
+							rs1 = koordinaadid[r][py + 1][px];
+							py++;
+							koordinaadid[r][py - 1][px] = rs2;
+							s1 = 0;
+						}
+						if (s2 == 1) {
+							rs2 = koordinaadid[r][py + 1][px];
+							py++;
+							koordinaadid[r][py-1][px] = rs1;
+							s2 = 0;
+							s1 = 1;
+						}
+
+
 		}
+		s2 = 1;
 		//toad(r);
 		joonistamine();
 	};
