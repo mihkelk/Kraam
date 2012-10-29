@@ -40,6 +40,9 @@ int toad() {
 			case '2':
 				koordinaadid[r][y][x] = 2;
 				break;
+			case '4':
+				koordinaadid[r][y][x] = 4;
+				break;
 			default:
 				koordinaadid[r][y][x] = 9;
 				break;
@@ -77,6 +80,10 @@ int joonistamine() {
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
 				printf("\1");
 				break;
+			case 4:
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				printf("\260");
+				break;
 
 			default:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 1);
@@ -97,8 +104,8 @@ int main() {
 
 	toad();
 	joonistamine();
-	int rsalvestatud; // salvestab ruudu kus mängja seisab, et see hiljem taastada
-
+	int rsalvestatud = koordinaadid[r][py][px]; // salvestab ruudu kus mängja seisab, et see hiljem taastada
+int pxr = 1;
 	while ("TRUE") {
 
 //----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
@@ -106,11 +113,16 @@ int main() {
 
 		if (klahv == 'd' && (koordinaadid[r][py][px + 1] != 1)) {
 
-			rsalvestatud = koordinaadid[r][py][px+1];
+			rsalvestatud = koordinaadid[r][py][px + 1];
 			px++;
-			koordinaadid[r][py][px - 1] = rsalvestatud;
+			pxr++;
+
+			if (pxr == 2 ) {
+				koordinaadid[r][py][px - 2] = rsalvestatud;
+				pxr = 0;
+			};
 		} else if (klahv == 'a' && (koordinaadid[r][py][px - 1] != 1)) {
-			rsalvestatud = koordinaadid[r][py][px+1];
+			rsalvestatud = koordinaadid[r][py][px + 1];
 			px--;
 			koordinaadid[r][py][px + 3] = rsalvestatud;
 		}
@@ -129,7 +141,6 @@ int main() {
 //------------------------------------------------------------------------//
 }
 //------------------------------------------------------------------------//
-
 
 // SetCursorPos(xpos,ypos); kursori paigutamine kuhugi, pole veel kasutusel
 
