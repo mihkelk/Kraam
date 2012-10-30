@@ -12,14 +12,14 @@
 int x;
 int y;
 int r;
-int koordinaadid[80][80][80];
+int koordinaadid[4][100][100];
 int suurus = 1000;
 int m = 0;
 int px = 30;
 int py = 30;
 int jsuurus = 10; //joonistatava vaatevälja suurus
 
-int toad() {
+int maailm() {
 	//int x;
 	//int y;
 
@@ -32,16 +32,16 @@ int toad() {
 			asukoht = fgetc(fp);
 			switch (asukoht) {
 			case '0':
-				koordinaadid[r][y][x] = 0;
+				koordinaadid[r][y][x] = 0; //tühjus
 				break;
 			case '1':
-				koordinaadid[r][y][x] = 1;
+				koordinaadid[r][y][x] = 1; //sein
 				break;
 			case '2':
-				koordinaadid[r][y][x] = 2;
+				koordinaadid[r][y][x] = 2; //muru
 				break;
 			case '4':
-				koordinaadid[r][y][x] = 4;
+				koordinaadid[r][y][x] = 4; //
 				break;
 			default:
 				koordinaadid[r][y][x] = 9;
@@ -102,14 +102,14 @@ int joonistamine() {
 //-------------------------------peafunktsioon----------------------------//
 int main() {
 
-	toad();
+	maailm();
 	joonistamine();
+	int Q = 1;
 	int rs1 = 0; // salvestab ruudu kus mängja seisab, et see hiljem taastada
 	int rs2 = 0; // salvestab teise ruudu kus mängija seisis
 	int s1 = 1; // samm 1
 	int s2 = 0; // samm 2
-	while ("TRUE") {
-
+	while (Q == 1) {
 //----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
 		char klahv = getch();
 
@@ -159,7 +159,7 @@ int main() {
 			if (s2 == 1) {
 				rs2 = koordinaadid[r][py - 1][px];
 				py--;
-				koordinaadid[r][py+1][px] = rs1;
+				koordinaadid[r][py + 1][px] = rs1;
 				s2 = 0;
 				s1 = 1;
 			}
@@ -168,25 +168,30 @@ int main() {
 		if (klahv == 's' && (koordinaadid[r][py + 1][px] != 1)) {
 
 			if (s1 == 1) {
-							s2 = 0;
-							rs1 = koordinaadid[r][py + 1][px];
-							py++;
-							koordinaadid[r][py - 1][px] = rs2;
-							s1 = 0;
-						}
-						if (s2 == 1) {
-							rs2 = koordinaadid[r][py + 1][px];
-							py++;
-							koordinaadid[r][py-1][px] = rs1;
-							s2 = 0;
-							s1 = 1;
-						}
+				s2 = 0;
+				rs1 = koordinaadid[r][py + 1][px];
+				py++;
+				koordinaadid[r][py - 1][px] = rs2;
+				s1 = 0;
+			}
+			if (s2 == 1) {
+				rs2 = koordinaadid[r][py + 1][px];
+				py++;
+				koordinaadid[r][py - 1][px] = rs1;
+				s2 = 0;
+				s1 = 1;
+			}
 
-
+		}
+		if (klahv == 'q') {
+			Q = 0;
 		}
 		s2 = 1;
 		//toad(r);
 		joonistamine();
+		//sleep(1000);
+		Sleep(200);
+
 	};
 	return 0;
 //------------------------------------------------------------------------//
