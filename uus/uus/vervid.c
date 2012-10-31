@@ -14,7 +14,7 @@ int main() {
 
 	int v;
 
-	for (v = 0; v < 99; v++) {
+	for (v = 0; v < 251; v++) {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), v); //värv!!
 		printf("%d", v);
 		printf("\n");
