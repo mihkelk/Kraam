@@ -9,7 +9,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <windows.h>
-// Programm mis kirjutad välja värvide väärtusi
+// Programm mis kirjutab välja värvide väärtusi
 int main() {
 
 	int v;
@@ -37,8 +37,9 @@ int main() {
 
 
 	 */
-
 	getch();
 
 	return 0;
 }
+
+//http://www.mailsend-online.com/blog/setting-windows-console-text-colors-in-c.html
