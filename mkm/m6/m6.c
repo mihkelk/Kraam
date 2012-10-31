@@ -144,6 +144,7 @@ int joonistamine() {
 			case 7:
 				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 98);
 				printf("\334");
+				// \334
 				break;
 
 			default:
