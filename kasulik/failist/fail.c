@@ -15,8 +15,8 @@ int main(void) {
 	int y;
 	int r = 1;
 	int koordinaadid[80][80][80];
-
-	FILE *fp = fopen("maailm.txt", "r");
+char fnimi = '5';
+	FILE *fp = fopen("/fnimi", "r");
 	char asukoht = '0';
 	//üldise toa loomine
 
