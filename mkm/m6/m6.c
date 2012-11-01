@@ -23,7 +23,8 @@ int jsuurus = 10; //joonistatava vaatevälja suurus
 int maailm() {
 	//int x;
 	//int y;
-
+//char failinimi[7];
+ //char failinimi = "z"+ znumber + ".txt"
 // korrus b1
 	FILE *bp = fopen("z49.txt", "r"); //Faili sisselugemine
 	char asukohtb1 = '0';
@@ -130,7 +131,7 @@ int joonistamine() {
 				printf("\1");
 				break;
 			case 4:
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 294); //42
 				printf("\260");
 				break;
 			case 5:
@@ -142,8 +143,8 @@ int joonistamine() {
 				printf("^");
 				break;
 			case 7:
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 98);
-				printf("\334");
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2680);
+				printf("\262");
 				// \334
 				break;
 
