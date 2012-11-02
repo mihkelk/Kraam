@@ -22,23 +22,25 @@ int main(void) {
 	 ////////////////////////////////*/
 	//char fnimi[] = "5";
 	char heh;
-	char fnimi[];
-	int nfnimi = 5;
+	char fnimi;
+	int nfnimi;
+	nfnimi = 5;
 	fnimi = nfnimi + 48;
+	printf("%c", fnimi);
 
-	FILE *fp = fopen(fnimi, "r");
+	/*FILE *fp = fopen(fnimi, "r");
 	heh = fgetc(fp);
 	printf("%c", heh);
 
 	nfnimi++;
 
-	 fnimi = (nfnimi + 48);
+	 fnimi = nfnimi + 48;
 
 		 fp = fopen(fnimi, "r");
 		heh = fgetc(fp);
 		printf("%c", heh);
 
-
+*/
 
 	/*	char c[]={'3',':','3'};
 	 int i;
