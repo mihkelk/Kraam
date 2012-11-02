@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <conio.h>
 
+char fnimi[10];
+
 int main(void) {
 
 	//char fnimi;
@@ -22,17 +24,19 @@ int main(void) {
 	 ////////////////////////////////*/
 	//char fnimi[] = "5";
 	char heh;
-	char fnimi;
 	int nfnimi;
 	nfnimi = 5;
-	fnimi = nfnimi + 48;
-	printf("%c", fnimi);
 
-	/*FILE *fp = fopen(fnimi, "r");
+	for (nfnimi= 5; nfnimi<7; nfnimi++){
+	fnimi[0] = nfnimi + 48; // + ".txt";
+
+	//printf("%c", fnimi);
+
+	FILE *fp = fopen(fnimi, "r");
 	heh = fgetc(fp);
 	printf("%c", heh);
-
-	nfnimi++;
+	}
+/*	nfnimi++;
 
 	 fnimi = nfnimi + 48;
 
