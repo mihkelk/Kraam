@@ -77,6 +77,9 @@ int maailm() {
 	return 1;
 }
 
+
+//http://blogs.microsoft.co.il/blogs/pavely/archive/2009/07/23/changing-console-fonts.aspx
+
 //-------------------------------joonistamine-----------------------------//
 int joonistamine() {
 
