@@ -10,21 +10,11 @@
 #include <stdlib.h>
 #include <windows.h> //
 #include <curses.h>
-//#include <cursesw.h>
-
-//char smiley = '\1'
-
-int x;
-int y;
-int z;
-int xpos = 0;
-int ypos = 0;
-int koordinaadid[100][100][100];
-int m = 0;
-int px = 30;
-int py = 30;
-int jsuurus = 10; //joonistatava vaatevälja suurus
-int coord = 0;
+#include <dos.h>
+int x, y, z, koordinaadid[100][100][100];
+int px = 30, py = 30; //mängija algkoordinaadid
+int jsuurus = 25; //joonistatava vaatevälja suurus
+BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);
 
 // Maailma loomine failist
 int maailm() {
@@ -36,7 +26,6 @@ int maailm() {
 		//	printf("%s", cz); //[0], cz[1], cz[2]);
 
 		FILE *korrus = fopen(cz, "r");
-		//	printf("%c", cz[1]);
 		char casukoht = '0';
 		for (y = 0; casukoht != '-'; y++) {
 			for (x = 0; casukoht != '\n'; x++) {
@@ -82,10 +71,15 @@ int maailm() {
 //-------------------------------joonistamine-----------------------------//
 int joonistamine() {
 
-	move(0, 0);
+	//raw();
+	curs_set(0); //peidab kursori
+//	endwin();
+	//refresh();
+	int reavahetus = -1;
 
 	for (y = py - jsuurus; y < (py + jsuurus); y++) {
-
+		reavahetus++;
+		move(reavahetus, 0);
 		for (x = px - jsuurus; x < (px + jsuurus); x++) {
 
 			if (x == px && y == py) {
@@ -103,7 +97,6 @@ int joonistamine() {
 				break;
 			case 3:
 				addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // altcharset vajalik naerunäeo näitamiseks
-				//refresh();
 				break;
 			case 4:
 				addch(ACS_BOARD | COLOR_PAIR(5));
@@ -120,19 +113,20 @@ int joonistamine() {
 			default:
 				printw("%d", koordinaadid[z][y][x]);
 				break;
+
 			};
+
 		};
-		addch('\n');
+
 
 	};
-	move(0, 0);  //peidab kursori
-	curs_set(0);
+
 
 	//printw("Kulda 50");
 	//printw("   Elusid 50\n");
 	//printw("Kõike 50");
-
-	endwin(); //vajalik et ei tekiks jooni värvide vahetusel, vabastab pdcurses-ile antud mälu
+	SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // vahetab fondi suurust, vajalik kuna kaotab ära jooned suuremat vilkumist põhjustamatta
+	//move(0, 0);
 
 	return 0;
 }
@@ -143,15 +137,17 @@ int main() {
 
 	maailm();
 
-	BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);    //
-	SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // paneb fondi suuruse paika
+	//BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);    //
+	//SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // paneb fondi suuruse paika
 
 	initscr();
+	raw();
+	noecho();
 	//initscr();
 
 //http://pdcurses.sourceforge.net/doc/PDCurses.txt
 
-	resize_term(jsuurus * 3, jsuurus * 3); //konsooli suuruse muutmine
+	resize_term(50, 50); //konsooli suuruse muutmine
 
 	//PDCurses vervindus
 	start_color();
@@ -166,13 +162,13 @@ int main() {
 	z = 50;
 	joonistamine();
 
-	int Q = 1;
+	BOOL lopp = FALSE;
 	int rs1 = 0; // salvestab ruudu kus mängja seisab, et see hiljem taastada
 	int rs2 = 0; // salvestab teise ruudu kus mängija seisis
 	int s1 = 1; // samm 1
 	int s2 = 0; // samm 2
 
-	while (Q == 1) {
+	while (lopp == FALSE) {
 //----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
 
 		char klahv = getch();
@@ -248,7 +244,7 @@ int main() {
 
 		}
 		if (klahv == 'q') {
-			Q = 0;
+			lopp = TRUE;
 		}
 		s2 = 1;
 
@@ -266,8 +262,18 @@ int main() {
 			break;
 		}
 
+		//joonistamine();
+		refresh();
 		joonistamine();
-
+		refresh();
+		joonistamine();
+		/*refresh();
+		 joonistamine();
+		 refresh();
+		 joonistamine();
+		 refresh();
+		 joonistamine();
+		 refresh();*/
 	};
 	return 0;
 //------------------------------------------------------------------------//
