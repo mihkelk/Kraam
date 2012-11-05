@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <windows.h> //
 #include <curses.h>
+
 //#include <cursesw.h>
 
 //char smiley = '\1'
@@ -24,7 +25,7 @@ int koordinaadid[100][100][100];
 int m = 0;
 int px = 30;
 int py = 30;
-int jsuurus = 10; //joonistatava vaatevälja suurus
+int jsuurus = 20; //joonistatava vaatevälja suurus
 int coord = 0;
 
 // Maailma loomine failist
@@ -135,7 +136,8 @@ int joonistamine() {
 	//printw("Kõike 50");
 
 //	endwin(); //vajalik et ei tekiks jooni värvide vahetusel, vabastab pdcurses-ile antud mälu
-
+move(0,0);
+curs_set(0);
 	return 0;
 }
 //------------------------------------------------------------------------//
@@ -145,11 +147,14 @@ int main() {
 
 	maailm();
 	initscr();
+	//BOOL WINAPI SetCurrentConsoleFontEx();
+	//normalFont();
+	pdc_font("DF_Mayday_16x16.ttf");
 	//initscr();
 
 //http://pdcurses.sourceforge.net/doc/PDCurses.txt
 
-	resize_term(jsuurus * 3, jsuurus * 3); //konsooli suuruse muutmine
+	resize_term(jsuurus * 2 , jsuurus * 2 + 1); //konsooli suuruse muutmine
 
 	//PDCurses vervindus
 	start_color();
