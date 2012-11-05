@@ -149,7 +149,7 @@ int main() {
 	initscr();
 	//BOOL WINAPI SetCurrentConsoleFontEx();
 	//normalFont();
-	pdc_font("DF_Mayday_16x16.ttf");
+	//pdc_font("DF_Mayday_16x16.ttf");
 	//initscr();
 
 //http://pdcurses.sourceforge.net/doc/PDCurses.txt
