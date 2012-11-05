@@ -81,12 +81,14 @@ int maailm() {
 
 //-------------------------------joonistamine-----------------------------//
 int joonistamine() {
-
+//raw();
+//refresh();
  //move(0, 0);
-	//Sleep(1);
+	//Sleep(100);
 	//refresh();
 	erase();
 	refresh();
+//	refresh();
 	//Sleep(1);
 
 
@@ -127,8 +129,11 @@ int joonistamine() {
 				printw("%d", koordinaadid[z][y][x]);
 				break;
 			};
+			//addch('\n');
 		};
+		//refresh();
 		addch('\n');
+
 	};
 
 	//printw("Kulda 50");
@@ -144,13 +149,14 @@ curs_set(0);
 
 //-------------------------------peafunktsioon----------------------------//
 int main() {
-
+//int fontIndex = 00;
 	maailm();
+
+	BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);    //
+			SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2);         // paneb fondi suuruse paika
+
 	initscr();
-	//BOOL WINAPI SetCurrentConsoleFontEx();
-	//normalFont();
-	//pdc_font("DF_Mayday_16x16.ttf");
-	//initscr();
+
 
 //http://pdcurses.sourceforge.net/doc/PDCurses.txt
 
@@ -273,6 +279,7 @@ int main() {
 	joonistamine();
 
 };
+	endwin();
 return 0;
 //------------------------------------------------------------------------//
 }

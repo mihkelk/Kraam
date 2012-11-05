@@ -77,7 +77,6 @@ int maailm() {
 	return 1;
 }
 
-
 //http://blogs.microsoft.co.il/blogs/pavely/archive/2009/07/23/changing-console-fonts.aspx
 
 //-------------------------------joonistamine-----------------------------//
@@ -124,7 +123,10 @@ int joonistamine() {
 			};
 		};
 		addch('\n');
+
 	};
+	move(0, 0);  //peidab kursori
+	curs_set(0);
 
 	//printw("Kulda 50");
 	//printw("   Elusid 50\n");
@@ -140,6 +142,10 @@ int joonistamine() {
 int main() {
 
 	maailm();
+
+	BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);    //
+	SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // paneb fondi suuruse paika
+
 	initscr();
 	//initscr();
 
@@ -260,11 +266,10 @@ int main() {
 			break;
 		}
 
+		joonistamine();
 
-	joonistamine();
-
-};
-return 0;
+	};
+	return 0;
 //------------------------------------------------------------------------//
 }
 //------------------------------------------------------------------------//
