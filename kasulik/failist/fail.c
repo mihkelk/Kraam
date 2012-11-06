@@ -36,6 +36,14 @@ int main(void) {
 	heh = fgetc(fp);
 	printf("%c", heh);
 	}
+
+	char asi[1];
+	asi[0] = '0';
+
+	int ajud;
+	ajud = atoi(asi);
+
+	printf("%d", ajud);
 /*	nfnimi++;
 
 	 fnimi = nfnimi + 48;
