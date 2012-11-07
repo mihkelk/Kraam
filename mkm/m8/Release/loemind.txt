@@ -1,0 +1,2 @@
+Tegelast juhitakse klahvidega w a s d, juhul kui see ei tööta lülitage capslock välja.
+Maailm laetakse failidest 49 ja 50, neid saab muuta tekstiredaktoriga.

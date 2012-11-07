@@ -5,19 +5,18 @@
  *      Author: mihkelk
  */
 
-//#include <stdio.h>
-//#include <conio.h>
 #include <stdlib.h>
-#include <windows.h> //
-#include <curses.h>
-//#include <dos.h>
-int x, y, z;
-char koordinaadid[100][500][500];
-int px = 248, py = 249; //mängija algkoordinaadid
-int jsuurus = 25; //joonistatava vaatevälja suurus
-BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);
+#include <windows.h> //Vajalik fondi muutuste käskluse jaoks.
+#include <curses.h>  //Vajalik PDCurses kasutamiseks.
 
-// Maailma loomine failist
+int x, y, z;
+char koordinaadid[100][500][500]; //Toetab 100 korrust mille suuruseks umbes 500x500 tähemärki, reavahetus loeb samuti tähemärgina.
+int px = 248, py = 247; //mängija algkoordinaadid
+int jsuurus = 25; //joonistatava vaatevälja suurus
+
+BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex); //Defineeritud et hiljem kasutada fondimuutus käsku.
+
+//---------------------------Maailma-loomine-failist----------------------//
 int maailm() {
 	char cz[10];
 
@@ -30,6 +29,7 @@ int maailm() {
 		char casukoht = '0';
 		for (y = 0; casukoht != '-'; y++) {
 			for (x = 0; casukoht != '\n'; x++) {
+
 				casukoht = fgetc(korrus);
 
 				koordinaadid[z][y][x] = casukoht;
@@ -42,13 +42,12 @@ int maailm() {
 
 	return 1;
 }
-
-//http://blogs.microsoft.co.il/blogs/pavely/archive/2009/07/23/changing-console-fonts.aspx
+//------------------------------------------------------------------------//
 
 //-------------------------------joonistamine-----------------------------//
 int joonistamine() {
 
-	curs_set(0); //peidab kursori
+	curs_set(0); //Peidab kursori.
 	int reavahetus = -1;
 
 	for (y = py - jsuurus; y < (py + jsuurus); y++) {
@@ -60,28 +59,28 @@ int joonistamine() {
 				koordinaadid[z][y][x] = '3';
 			}
 			switch (koordinaadid[z][y][x]) {
-			case '0':
-				addch(ACS_BLOCK | COLOR_PAIR(6)); // sümbolid laiendatud ascii tabelist pdcursesiga nimetused ACS_*
+			case '0': //Tühjus
+				addch(ACS_BLOCK | COLOR_PAIR(6)); // Sümbolid laiendatud ascii tabelist pdcursesiga nimetused ACS_*
 				break;
-			case '1':
+			case '1': //Sein
 				addch(ACS_BLOCK | COLOR_PAIR(1)); // Värve võetakse paaridena mis on defineeritud peafunktsioonis.
 				break;
-			case '2':
+			case '2': //Muru
 				addch(ACS_CKBOARD | COLOR_PAIR(2));
 				break;
-			case '3':
-				addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // altcharset vajalik naerunäeo näitamiseks
+			case '3': //Mängija
+				addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // Altcharset vajalik naerunäeo näitamiseks.
 				break;
-			case '4':
+			case '4': //Heledam muru
 				addch(ACS_BOARD | COLOR_PAIR(5));
 				break;
-			case '5':
+			case '5': //Trepp alla
 				addch('v' | COLOR_PAIR(4));
 				break;
-			case '6':
+			case '6': //Trepp üles
 				addch('^' | COLOR_PAIR(4));
 				break;
-			case '7':
+			case '7': //Kivipõrand
 				addch(ACS_CKBOARD | COLOR_PAIR(7));
 				break;
 			default:
@@ -94,35 +93,26 @@ int joonistamine() {
 
 	};
 
-	//printw("Kulda 50");
-	//printw("   Elusid 50\n");
-	//printw("Kõike 50");
-	SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // vahetab fondi suurust, vajalik kuna kaotab ära jooned suuremat vilkumist põhjustamatta
-	//move(0, 0);
+	SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // Vahetab fondi suurust, vajalik kuna kaotab ära jooned suuremat vilkumist põhjustamatta.
 
 	return 0;
 }
 //------------------------------------------------------------------------//
 
-//-------------------------------peafunktsioon----------------------------//
+//-------------------------------Peafunktsioon----------------------------//
 int main() {
 
 	maailm();
 
-	//BOOL WINAPI SetConsoleFont(HANDLE hOutput, DWORD fontIndex);    //
-	//SetConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), 2); // paneb fondi suuruse paika
-
 	initscr();
-	//raw();
-	//noecho();
-	//initscr();
 
 //http://pdcurses.sourceforge.net/doc/PDCurses.txt
 
-	resize_term(50, 50); //konsooli suuruse muutmine
+	resize_term(jsuurus * 2, jsuurus * 2); //Konsooli suuruse muutmine.
 
-	//PDCurses vervindus
-	start_color();
+	//PDCurses värvindus.
+	start_color(); //Alustab värvide kasutust.
+	//---------Värvipaaride määramine.---------//
 	init_pair(1, COLOR_WHITE, COLOR_WHITE);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_RED, COLOR_BLACK);
@@ -130,23 +120,22 @@ int main() {
 	init_pair(5, COLOR_GREEN, COLOR_YELLOW);
 	init_pair(6, COLOR_BLACK, COLOR_BLACK);
 	init_pair(7, COLOR_WHITE, COLOR_BLACK);
-
+	//-----------------------------------------//
 	z = 50;
 	joonistamine();
 
-	BOOL lopp = FALSE;
-	char rs1 = '0'; // salvestab ruudu kus mängja seisab, et see hiljem taastada
-	char rs2 = '2'; // salvestab teise ruudu kus mängija seisis
-	int s1 = 1; // samm 1
-	int s2 = 0; // samm 2
+	BOOL lopp = FALSE; //
+	char rs1 = '0'; // Salvestab ruudu kus mängja seisab, et see hiljem taastada.
+	char rs2 = '2'; // Salvestab teise ruudu kus mängija seisis.
+	int s1 = 1, s2 = 0; // Sammuloendurid 1 ja 2.
 
 	while (lopp == FALSE) {
+
 //----------Klahvivajutuste-järgi-mängija-koordinaatide-muutmine----------//
 
 		char klahv = getch();
 
 		if (klahv == 'd' && (koordinaadid[z][py][px + 1] != '1')) {
-
 			if (s1 == 1) {
 				s2 = 0;
 				rs1 = koordinaadid[z][py][px + 1];
@@ -161,9 +150,7 @@ int main() {
 				s2 = 0;
 				s1 = 1;
 			}
-
 		} else if (klahv == 'a' && (koordinaadid[z][py][px - 1] != '1')) {
-			//rsalvestatud = koordinaadid[z][py][px + 1];
 			if (s1 == 1) {
 				s2 = 0;
 				rs1 = koordinaadid[z][py][px - 1];
@@ -178,7 +165,6 @@ int main() {
 				s2 = 0;
 				s1 = 1;
 			}
-			//koordinaadid[z][py][px + 3] = rsalvestatud;*/
 		} else if (klahv == 'w' && (koordinaadid[z][py - 1][px] != '1')) {
 			if (s1 == 1) {
 				s2 = 0;
@@ -194,9 +180,7 @@ int main() {
 				s2 = 0;
 				s1 = 1;
 			}
-
 		} else if (klahv == 's' && (koordinaadid[z][py + 1][px] != '1')) {
-
 			if (s1 == 1) {
 				s2 = 0;
 				rs1 = koordinaadid[z][py + 1][px];
@@ -211,13 +195,13 @@ int main() {
 				s2 = 0;
 				s1 = 1;
 			}
-
 		} else if (klahv == 'q') {
 			lopp = TRUE;
 		}
+
 		s2 = 1;
 
-		switch (koordinaadid[z][py][px]) {
+		switch (koordinaadid[z][py][px]) { //Kui on tegu treppidega.
 		case '5':
 			z--;
 			rs1 = '7';
@@ -227,17 +211,17 @@ int main() {
 			z++;
 			rs1 = '7';
 			rs2 = '7';
-
 			break;
 		}
-		refresh();         // Peab läbi viima mitu korda et jooned kustuks.
-		joonistamine();    //
-		refresh();         //
-		joonistamine();    //
+		//------------------------------------------------------------------------//
+
+		refresh();         //////////////////////////////////////////////////
+		joonistamine();    // Peab läbi viima mitu korda et jooned kustuks.//
+		refresh();         //                                              //
+		joonistamine();    //////////////////////////////////////////////////
 
 	};
 	return 0;
-//------------------------------------------------------------------------//
 }
 //------------------------------------------------------------------------//
 
