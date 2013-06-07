@@ -5,18 +5,9 @@
  *      Author: mihkelk
  */
 
-
-/*
- * m8.c
- *
- *  Created on: 07.11.2012
- *      Author: mihkelk
- */
-
 #include <stdlib.h>
 #include <windows.h> //Vajalik fondi muutuste käskluse jaoks.
 #include <curses.h>  //Vajalik PDCurses kasutamiseks.
-
 int x, y, z;
 char koordinaadid[100][500][500]; //Toetab 100 korrust mille suuruseks umbes 500x500 tähemärki, reavahetus loeb samuti tähemärgina.
 int px = 248, py = 247; //mängija algkoordinaadid
@@ -64,44 +55,42 @@ int joonistamine() {
 		for (x = px - jsuurus; x < (px + jsuurus); x++) {
 
 			if (x == px && y == py) {
-										addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // Altcharset vajalik naerunäeo näitamiseks.
-
-			}else{
-
-			switch (koordinaadid[z][y][x]) {
-			case '0': //Tühjus
-				addch(ACS_BLOCK | COLOR_PAIR(6)); // Sümbolid laiendatud ascii tabelist pdcursesiga nimetused ACS_*
-				break;
-			case '1': //Sein
-				addch(ACS_BLOCK | COLOR_PAIR(1)); // Värve võetakse paaridena mis on defineeritud peafunktsioonis.
-				break;
-			case '2': //Muru
-				addch(ACS_CKBOARD | COLOR_PAIR(2));
-				break;
-			case '3': //Mängija
 				addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // Altcharset vajalik naerunäeo näitamiseks.
-				break;
-			case '4': //Heledam muru
-				addch(ACS_BOARD | COLOR_PAIR(5));
-				break;
-			case '5': //Trepp alla
-				addch('v' | COLOR_PAIR(4));
-				break;
-			case '6': //Trepp üles
-				addch('^' | COLOR_PAIR(4));
-				break;
-			case '7': //Kivipõrand
-				addch(ACS_CKBOARD | COLOR_PAIR(7));
-				break;
-			default:
-				printw("%d", koordinaadid[z][y][x]);
-				break;
 
+			} else {
+
+				switch (koordinaadid[z][y][x]) {
+				case '0': //Tühjus
+					addch(ACS_BLOCK | COLOR_PAIR(6)); // Sümbolid laiendatud ascii tabelist pdcursesiga nimetused ACS_*
+					break;
+				case '1': //Sein
+					addch(ACS_BLOCK | COLOR_PAIR(1)); // Värve võetakse paaridena mis on defineeritud peafunktsioonis.
+					break;
+				case '2': //Muru
+					addch(ACS_CKBOARD | COLOR_PAIR(2));
+					break;
+				case '3': //Mängija
+					addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // Altcharset vajalik naerunäeo näitamiseks.
+					break;
+				case '4': //Heledam muru
+					addch(ACS_BOARD | COLOR_PAIR(5));
+					break;
+				case '5': //Trepp alla
+					addch('v' | COLOR_PAIR(4));
+					break;
+				case '6': //Trepp üles
+					addch('^' | COLOR_PAIR(4));
+					break;
+				case '7': //Kivipõrand
+					addch(ACS_CKBOARD | COLOR_PAIR(7));
+					break;
+				default:
+					printw("%d", koordinaadid[z][y][x]);
+					break;
+
+				};
 			};
-			};
-		//	/ if (x == px && y == py) {
-		//				addch('\1' | COLOR_PAIR(4) | A_ALTCHARSET); // Altcharset vajalik naerunäeo näitamiseks.
-		//				}
+
 		};
 
 	};
@@ -121,8 +110,10 @@ int main() {
 
 //http://pdcurses.sourceforge.net/doc/PDCurses.txt
 
-	resize_term(jsuurus * 2, jsuurus * 2); //Konsooli suuruse muutmine.
-
+	//resize_term(jsuurus * 2, jsuurus * 2); //Konsooli suuruse muutmine.
+	resize_term(jsuurus * 2 + 60, jsuurus * 2 + 60); //Konsooli suuruse muutmine.
+	move(55,0);
+	printf("joonistamine");
 	//PDCurses värvindus.
 	start_color(); //Alustab värvide kasutust.
 	//---------Värvipaaride määramine.---------//
@@ -148,7 +139,6 @@ int main() {
 		if (klahv == 'd' && (koordinaadid[z][py][px + 1] != '1')) {
 			px++;
 
-
 		} else if (klahv == 'a' && (koordinaadid[z][py][px - 1] != '1')) {
 			px--;
 
@@ -161,8 +151,6 @@ int main() {
 		} else if (klahv == 'q') {
 			lopp = TRUE;
 		}
-
-
 
 		switch (koordinaadid[z][py][px]) { //Kui on tegu treppidega.
 		case '5':
